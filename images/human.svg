@@ -64,14 +64,14 @@
          sodipodi:cy="424.8049"
          sodipodi:cx="96.974648"
          id="path2996"
-         style="fill:#ff0000;fill-opacity:1;stroke:none"
+         style="fill-opacity:1;stroke:none"
          sodipodi:type="arc" />
       <path
          sodipodi:nodetypes="cccccccccc"
          inkscape:connector-curvature="0"
          id="path3766"
          d="m 77.343426,448.99851 c 0.32859,-13.30516 39.039654,-13.38904 38.824114,-0.50508 l 0,34.14272 c 0.26997,4.44409 -4.54643,8.55291 -8.08122,8.08122 l -2.59213,51.98948 -16.600766,0.0334 -3.030458,-52.02285 c -5.149,0.30071 -8.348948,-3.70613 -8.586296,-8.08122 l 0,0 z"
-         style="fill:#ff0000;fill-opacity:1;stroke:none" />
+         style="fill-opacity:1;stroke:none" />
     </g>
   </g>
 </svg>
