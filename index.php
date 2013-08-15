@@ -8,7 +8,6 @@
 		{
 			background: #efefef;
 			
-			
 		}
 		.living
 			{
@@ -37,7 +36,8 @@
 		var height = 400;
 		var dataset = [ 5, 10, 13, 19];
 		
-		var dead = 0;
+		var total_dead = 0;
+		var total_saved = 0;
 		
 		var svg = d3.select("body").append("svg")
 		    .attr("width", width)
@@ -146,25 +146,28 @@
 		}); 
 		}
 
-		function randomkill(){
+		function randomkill(dead,dead_var,save,save_var){
 			reset("dead");
 			reset("saved");
-		        var killed = 3+Math.floor(Math.random()*4);
+		        var killed = dead+(Math.floor((Math.random()*dead_var)-(dead_var/2)));
 		        d3.select("killtext").text(killed+" died");
 		        for (var i=0; i<killed; i++)
 		        {
 				var kill_object = document.getElementById("icon"+Math.floor(Math.random()*10)+"_"+Math.floor(Math.random()*20));
-				dead += 1;
+				total_dead += 1;
 				kill_object.setAttribute("class","dead");
 				//kill_object.setAttribute("transform","translate(" + [400+(dead *12),300] + ")" + "scale("+ 0.3 +")")
+				console.log(kill_object,"   ",i);
 			}
-			var saved = 3+Math.floor(Math.random()*4);
+			var saved = save+(Math.floor((Math.random()*save_var)-save_var/2));
+			
 		        for (var i=0; i<saved; i++)
 		        {
 				var kill_object = document.getElementById("icon"+Math.floor(Math.random()*10)+"_"+Math.floor(Math.random()*20));
-				dead += 1;
+				total_saved += 1;
 				kill_object.setAttribute("class","saved");
 				//kill_object.setAttribute("transform","translate(" + [400+(dead *12),300] + ")" + "scale("+ 0.3 +")")
+				console.log(kill_object,"   ",i," ",saved);
 			}
 			console.log(kill_object);
 		}
@@ -185,6 +188,6 @@
 		
 
 </script><br\>
-<input id="clickMe" type="button" value="Run test" onclick="randomkill();" />
+<input id="clickMe" type="button" value="Run test" onclick="randomkill(5,2,2,2);" />
 </body>
 </html>
