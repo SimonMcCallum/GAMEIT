@@ -1,0 +1,50 @@
+body
+{
+	background: #efefef;
+	
+}
+.living
+	{
+		fill:#999999;
+	}
+.dead
+	{
+		fill:red;
+	}
+.saved
+	{
+		fill:green;
+	}
+.light
+	{
+		fill:#DDD;
+		stroke:#BBB;
+	}
+.container
+{
+	padding: 20px 0; 
+}
+	.container .slider
+	{
+		margin-top: 20px;
+		width: 300px;
+	}
+nav.tabs
+{
+	height: 42px;
+	border-bottom: 1px solid #bbb;
+}
+	nav.tabs a
+	{
+		display: block;
+		float: left;
+		padding: 10px 20px;
+		border-width: 1px 1px 0 0;
+		border-style: solid;
+		border-color: #bbb;
+	}
+		nav.tabs a:first-of-type
+		{
+			border-width: 1px 1px 0 1px;
+			background: #fff;
+		}

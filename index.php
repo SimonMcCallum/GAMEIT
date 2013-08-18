@@ -3,33 +3,27 @@
 <head>
 	<meta charset="utf-8" />
 	<title>Game-IT</title>
-	<style type="text/css">
-		body
-		{
-			background: #efefef;
-			
-		}
-		.living
-			{
-				fill:#999999;
-			}
-		.dead
-			{
-				fill:red;
-			}
-		.saved
-			{
-				fill:green;
-			}
-		.light
-			{
-				fill:#DDD;
-				stroke:#BBB;
-			}
-	</style>
+	<link rel="stylesheet" href="./css/bootstrap.min.css" />
+	<link rel="stylesheet" href="./css/style.css" />
 </head>
 
 <body>
+	<section class="container">
+		<nav class="tabs"><a href="#">Tab1</a><a href="#">Tab2</a><a href="#">Tab2</a></nav>
+		<br/>
+		This is a prototype for visualising effects.  Enter the relevant numbers below:</br>
+		Total :
+		<div class="svg"></div>
+		<input id="rate" type="text" value="20" style="width:40px"/>
+		<input id="stddev_rate" type="text" value="10" style="width:40px"/>
+		<input id="intervention" type="text" value="4" style="width:40px"/>
+		<input id="stddev_intervention" type="text" value="3" style="width:40px"/>
+		<input id="treatment" type="checkbox" checked="true"/>
+
+		<input id="clickMe" type="button" value="Run test" onclick="runTest()" />
+		<br />
+		0 <input type="range" steps="6" value="0" min="0" max="6" name="year" class="slider" /> 6
+	</section>
 	<script src="./js/d3.v3.min.js" charset="utf-8"></script>
 	<script src="./js/d3.geo.js" charset="utf-8"></script>
 	<script>
@@ -43,7 +37,7 @@
 		var total_saved = 0;
 		
 		//set up the svg for the game
-		var svg = d3.select("body").append("svg")
+		var svg = d3.select("body .container .svg").append("svg")
 		    .attr("width", width)
 		    .attr("height", height);
 		    svg.attr("id","gameview");
@@ -241,22 +235,8 @@
 			    //        + (height - d*4 - (width / dataset.length)) + ")"
 			    //        +"scale("+ 0.3 +")";
 			    //});
-			
-		
-		
-		
 
-</script>
-<br/>
-This is a prototype for visualising effects.  Enter the relevant numbers below:</br>
-Total : 
-<input id="rate" type="text" value="20" style="width:40px"/>
-<input id="stddev_rate" type="text" value="10" style="width:40px"/>
-<input id="intervention" type="text" value="4" style="width:40px"/>
-<input id="stddev_intervention" type="text" value="3" style="width:40px"/>
-<input id="treatment" type="checkbox" checked="true"/>
-
-<input id="clickMe" type="button" value="Run test" onclick="runTest()" />
+	</script>
 </body>
 </html>
 
