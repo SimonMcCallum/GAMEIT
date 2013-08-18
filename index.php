@@ -34,7 +34,7 @@
 	<script src="./js/d3.geo.js" charset="utf-8"></script>
 	<script>
 		var width = 600;
-		var height = 400;
+		var height = 420;
 		
 		var grid_rows = 10;
 		var grid_cols = 40;
