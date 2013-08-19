@@ -8,33 +8,73 @@
 </head>
 
 <body>
+<section class="magicapp">
+	<iframe class="magicapp" src="http://www.magicapp.org/login" ></iframe>
+</section>
 	<section class="container">
-		<nav class="tabs"><a href="#">Tab1</a><a href="#">Tab2</a><a href="#">Tab2</a></nav>
+		<nav class="tabs"><a href="#">CVD</a><a href="#">Art.Fib</a><a href="#">Throm</a></nav>
 		<br/>
-		This is a prototype for visualising effects.  Enter the relevant numbers below:</br>
-		Total :
+		This is a prototype for visualising effects.  Enter the effect numbers below:</br>
 		<div class="svg"></div>
-		<input id="rate" type="text" value="20" style="width:40px"/>
-		<input id="stddev_rate" type="text" value="10" style="width:40px"/>
-		<input id="intervention" type="text" value="4" style="width:40px"/>
-		<input id="stddev_intervention" type="text" value="3" style="width:40px"/>
+		<table>
+		<tr>
+		<td>
+		<span class="head40">Risk Control:</span> 
+		</td>
+		<td>
+		 <span class="head40">Risk Int.</span>
+		 </td>
+		<td> 
+		 <span class="head40">Diff.</span> 
+		 </td>
+		<td>
+		<span class="head40"> - CI</span> <br/>
+		</td>
+		<td>
+		<span class="head40"> + CI</span> <br/>
+		</td>
+		</tr>
+		<tr>
+		<td>
+		<input id="rate" type="text" value="20" style="width:90px"/>
+		</td>
+		<td>
+		<input id="intervention" type="text" value="10" style="width:90px"/>
+		</td>
+		<td>
+		<input id="diff" type="text" value="10" style="width:50px"/>
+		</td>
+		<td>
+		<input id="stddev_intervention-neg" type="text" value="2" style="width:50px"/>
+		</td>
+		<td>
+		<input id="stddev_intervention-pos" type="text" value="18" style="width:50px"/>
+		</td>
+		<td>
 		<input id="treatment" type="checkbox" checked="true"/>
-
+		</td>
+		</tr>
+		</table>
 		<input id="clickMe" type="button" value="Run test" onclick="runTest()" />
 		<br />
-		0 <input type="range" steps="6" value="0" min="0" max="6" name="year" class="slider" /> 6
+		0-10<input type="range" steps="10" value="0" min="0" max="10" name="year" class="slider" /> 90+
 	</section>
 	<script src="./js/d3.v3.min.js" charset="utf-8"></script>
 	<script src="./js/d3.geo.js" charset="utf-8"></script>
+	<script src="./js/random-0.26.js" charset="utf-8"></script>
 	<script>
 		var width = 600;
-		var height = 420;
+		var height = 580;
 		
-		var grid_rows = 10;
+		var grid_rows = 14;
 		var grid_cols = 40;
+		
+		var humanRatio = (grid_rows*grid_cols)/1000;
 		
 		var total_dead = 0;
 		var total_saved = 0;
+		
+		var randomStream = new Random();
 		
 		//set up the svg for the game
 		var svg = d3.select("body .container .svg").append("svg")
@@ -50,7 +90,8 @@
 		    .attr("font-family","sans-serif")
 		    .attr("font-size","10px")
 		    .attr("fill","red")
-		    .text("Starting pop.");
+		    //.text("Starting pop.")
+		    ;
 		
 		//Add the defs and mask which act as the icon containers    
 		var defs=svg.append("defs");
@@ -64,8 +105,8 @@
 			.projection(d3.geo.albers()
 			.origin([18, 65])
 			.parallels( [60.0, 68.0] )
-			.scale(1500)
-			.translate([200, 200])
+			.scale(2400)
+			.translate([310, 290])
 		);
 
 		var fylker = svg.append("svg:g").attr("id", "fylker");
@@ -152,41 +193,43 @@
 		function runTest()
 		{
 		 var rate = parseInt(document.getElementById('rate').value);
-		 var stddev_rate = parseInt(document.getElementById('stddev_rate').value);
+		 var stddev_rate = 2;
 		 var intervention = parseInt(document.getElementById('intervention').value);
-		 var stddev_intervention = parseInt(document.getElementById('stddev_intervention').value);
+		 var stddev_intervention_neg = parseInt(document.getElementById('stddev_intervention-neg').value);	 
+		 var stddev_intervention_pos = parseInt(document.getElementById('stddev_intervention-pos').value);
 		 var treatment = document.getElementById('treatment').value;
 		
-		console.log(rate,"   ",stddev_intervention);
+		console.log(rate,"   ",stddev_intervention_neg);
 		
-		 randomKill(rate,stddev_rate,intervention,stddev_intervention);
+		 randomKill(rate,stddev_rate,intervention,stddev_intervention_neg,stddev_intervention_pos);
 		
 		}
 
-		function randomKill(dead,dead_var,save,save_var){
+		function randomKill(dead,dead_var,save,save_var_neg,save_var_pos){
 			reset("dead");
 			reset("saved");
-		        var killed = dead+(Math.floor((Math.random()*dead_var)-(dead_var/2)));
+		        var killed = Math.floor((dead)*humanRatio); //+(Math.floor((Math.random()*dead_var)-(dead_var/2)))
+		       
 		        d3.select("killtext").text(killed+" died");
+			var intervention_worked = randomStream.normal((dead-save),(save_var_pos-save_var_neg)/4);
+			console.log(intervention_worked);
 		        for (var i=0; i<killed; i++)
 		        {
 				var kill_object = document.getElementById("icon"+Math.floor(Math.random()*grid_rows)+"_"+Math.floor(Math.random()*grid_cols));
+				
+
+				if(i<intervention_worked*humanRatio){
+					kill_object.setAttribute("class","saved");
+				}
+				else
+				{
 				total_dead += 1;
 				kill_object.setAttribute("class","dead");
 				//kill_object.setAttribute("transform","translate(" + [400+(dead *12),300] + ")" + "scale("+ 0.3 +")")
 				console.log(kill_object,"   ",i);
+				}
 			}
-			var saved = save+(Math.floor((Math.random()*save_var)-save_var/2));
-			
-		        for (var i=0; i<saved; i++)
-		        {
-				var kill_object = document.getElementById("icon"+Math.floor(Math.random()*grid_rows)+"_"+Math.floor(Math.random()*grid_cols));
-				total_saved += 1;
-				kill_object.setAttribute("class","saved");
-				//kill_object.setAttribute("transform","translate(" + [400+(dead *12),300] + ")" + "scale("+ 0.3 +")")
-				console.log(kill_object,"   ",i," ",saved);
-			}
-			console.log(kill_object);
+				
 		}
 		
 		/*

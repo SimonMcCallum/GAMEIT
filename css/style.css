@@ -1,8 +1,15 @@
+@media only screen and (orientation : landscape) {
+    body {
+        -webkit-transform: scale(1);
+        background: #efefef;
+    }
+}
 body
 {
 	background: #efefef;
-	
+
 }
+	
 .living
 	{
 		fill:#999999;
@@ -22,13 +29,29 @@ body
 	}
 .container
 {
-	padding: 20px 0; 
+	
+	
+	padding:20px 5px;
 }
 	.container .slider
 	{
 		margin-top: 20px;
 		width: 300px;
 	}
+	.container .head40
+	{
+		
+		width:80px;
+	}
+
+.magicapp
+{
+	padding: 20px 0; 
+	float:left;
+	width: 800px;
+	height: 800px;
+}
+
 nav.tabs
 {
 	height: 42px;
