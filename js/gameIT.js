@@ -17,7 +17,7 @@
 			var scale = 0.3;
 			var x_step = 40 * scale;
 			var y_step = x_step*3.3; //The human has a 2:1 ration of hieght to width
-			var x_offset = x_step/2;
+			var x_offset = x_step/2+10;
 			var y_offset = y_step/2;
 			var x_gap = 2; // space between columns
 			var y_gap = 1; // space between rows
@@ -50,6 +50,14 @@
 		var defs=svg.append("defs");
 		defs.append("mask");
 		    
+  function handleTabs (event,ui) {
+    			console.log(event);
+        console.log(ui.newPanel.selector);
+			};
+
+    $( "#tabs" ).tabs({ activate: function (event, ui){ handleTabs(event,ui);}});
+  
+		
 		
 		// All the Counties in Norway
 		// geoJson from:
@@ -76,6 +84,7 @@
 		function stepYear()
 		{
 		     currentYear = currentYear+1;
+    		     $("#yearNumber").text(currentYear);
 		     update_grid(grid_rows,grid_cols ,width, height);
 		}
 		
@@ -88,6 +97,10 @@
     			console.log("slider",theValue);
 			};
 		
+		function endTurn(){
+		//check that all decisions made
+    			stepYear();		
+		}
 		
 	
 		
@@ -130,8 +143,12 @@
 			
 			for (var i=0;i<rows;i++)
 			{
-				pop_row_size[i] = (population[year-year_offset][(i*(yearStep*2))+gender+1]/max_population)*maxCols;
-				
+			var newpop = 0.0;
+				for (var j=0;j<yearStep;j++){
+				  	newpop+=population[year-year_offset][(i*(yearStep*2)+(j*2))+gender+1]/max_population;
+				}
+				pop_row_size[i] = (newpop/yearStep)*maxCols;
+				text = d3.select("svg").append('text').text(i*yearStep).attr('x', 0).attr('y', i*(y_step+y_gap)).attr('fill', 'black');
 				make_row("human","living",20,//pop_row_size[i],
 					x_offset,x_step+x_gap,
 					i*(y_step+y_gap),i,scale);

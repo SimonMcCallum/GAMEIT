@@ -1,0 +1,26 @@
+[{"id":1,
+"PICO 1":"(«throm»)",
+"Population": "Acute Venous Thrombosis",
+"Intervention": "Parenteral anticoagulation", 
+"Comparator": "No treatment",
+"Outcomes":[
+{"Type":"Mortality",
+"Relative Risk":  {"Mean": 0.55, "CILow":0.06 , "CIHigh":5.2},
+"Comparator risk": 0.030,
+"Quality  assessment": "Moderate- due to imprecision"},
+{"Type":"Recurrence and growth of Venous Thrombosis",
+"Relative Risk":  {"Mean": 0.34, "CILow":0.11 , "CIHigh":0.97},
+"Comparator risk": 0.188,
+"Quality  assessment": "Moderate- due to imprecision"},
+{"Type":"Major bleeding",
+"Relative Risk":  {"Mean": 0.7, "CILow":0.15 , "CIHigh":3.9},
+"Comparator risk": 0.060
+"Quality  assessment": "Moderate- due to imprecision"}],
+"Key information":
+{"Benefits and harms":"Three randomized studies have shown that this is as effective and safe to delay initiation of warfarin. Early initiation of warfarin will shorten parenteral treatment, which could reduce the incidence of heparin-induced thrombocytopenia (HIT). Per 1000 Patients: Initial parenteral therapy will reduce the number Reoccurence without an increasing the occurance of major bleeding.",
+"Quality of evidence":"In 2 of 3 studies, patients and physicians not blinded to which treatment they received. No studies have data on incidence of HIT. Moderate for initial parenteral treatment. There is only data from a randomized trial (120 patients). The quality of this study is considered moderate due to imprecise estimates. The study was stopped early because of significantly fewer residivtromboser with parenteral treatment, which meant few events (low number residivtromboser and few cases of major bleeding or death). ",
+"Preference and values":"We assume that almost all patients will want initial parenteral treatment because fewer residivtromboser no increased risk of major bleeding, although it will be somewhat greater discomfort for the patient (daily injections). However, practical considerations taken into account by early initiation of warfarin, for example. INR should be measured day 3 and 5 after startup, so that these days should preferably fall on weekdays with open outpatient clinic / medical office. ",
+"Resources and Other Considerations":"Treatment are most places refunded after reimbursement scheme (ICD I26, I80, I82)."},
+"Recommendation":"We recommend initial treatment with Parenteral anticoagulation for at least 5 days and until the INR is> 2.0 for at least 24 hours.",
+"Strength":"Strong"
+}]

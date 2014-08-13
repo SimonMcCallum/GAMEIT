@@ -1,51 +1,44 @@
 	<section class="container">
-		<nav class="tabs"><a href=".\index.php?cond=POP">Population</a><a href=".\index.php?cond=CVD">CVD</a><a href=".\index.php?cond=AF">Art.Fib</a><a href=".\index.php?cond=THROM">Throm</a></nav>
-		<br/>
-		This is a prototype for visualising effects.  Enter the effect numbers below:</br>
-		<h2 id="yearNumber">2000</h2>
+		<div id="tabs">
+<ul>
+<li><a href="#tabs-1">Population</a></li>
+<li><a href="#tabs-2">CVD</a></li>
+<li><a href="#tabs-3">Art.Fib</a></li>
+<li><a href="#tabs-4">Throm</a></li>
+</ul>
+<div class="decisions">
+<div id="tabs-1">
+    <p>The diagram below shows the current poplation. If you are happy with all the decisions then you can move to the next year with the button below</p>
+  </div>
+  <div id="tabs-2">
+    <p>What recommendations will you make for CVD</p>
+  </div>
+  <div id="tabs-3">
+    <p>What recommendations will you make for Arterial Fibrosis</p>
+  </div>
+  <div id="tabs-4">
+    <p>What recommendations will you make for Thrombosis</p>
+    <table><tr><td>Population</td><td id="Population"></td></tr>
+	<tr><td>Intervention</td><td id="Intervention"></td></tr>
+	<tr><td>Recommendations</td></tr>
+	<tr><td><div class="strength">
+      		<a class="selectitem" class="str0" href="#">None</a>
+		<a class="selectitem" class="str1" href="#">Weak</a>
+		<a class="selectitem" class="str2" href="#">Strong</a></td><td id="rec"></div></td></tr>
+	</table>
+    
+
+
+  </div>
+<div id="questions"> </div>
+</div>
+</div>
+		<h2> Year <span id="yearNumber">2000</span></h2>
 		<div class="svg"></div>
-		<table>
-		<tr>
-		<td>
-		<span class="head40">Risk Control:</span> 
-		</td>
-		<td>
-		 <span class="head40">Risk Int.</span>
-		 </td>
-		<td> 
-		 <span class="head40">Diff.</span> 
-		 </td>
-		<td>
-		<span class="head40"> - CI</span> <br/>
-		</td>
-		<td>
-		<span class="head40"> + CI</span> <br/>
-		</td>
-		</tr>
-		<tr>
-		<td>
-		<input id="rate" type="text" value="20" style="width:90px"/>
-		</td>
-		<td>
-		<input id="intervention" type="text" value="10" style="width:90px"/>
-		</td>
-		<td>
-		<input id="diff" type="text" value="10" style="width:50px"/>
-		</td>
-		<td>
-		<input id="stddev_intervention-neg" type="text" value="2" style="width:50px"/>
-		</td>
-		<td>
-		<input id="stddev_intervention-pos" type="text" value="18" style="width:50px"/>
-		</td>
-		<td>
-		<input id="treatment" type="checkbox" checked="true"/>
-		</td>
-		</tr>
-		</table>
-		<input id="clickMe" type="button" value="Run test" onclick="runTest()" />
+		
+		<input id="yearStep" type="button" value="End Turn" onclick="endTurn()" />
 		<br />
-		2000<input id="year" type="range" steps="1" value="0" min="0" max="10" name="year" class="slider" /> 2010
-		<span id="yearSliderValLabel"> Year Range: <span id="yearSliderVal">0</span></span>
+		<!-- 2000<input id="year" type="range" steps="1" value="0" min="0" max="10" name="year" class="slider" /> 2010
+		<span id="yearSliderValLabel"> Year Range: <span id="yearSliderVal">0</span></span> -->
 
 	</section>
