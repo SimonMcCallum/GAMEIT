@@ -9,12 +9,12 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="744.09448819"
-   height="1052.3622047"
+   width="50"
+   height="140"
    id="svg2"
    version="1.1"
    inkscape:version="0.48.4 r9939"
-   sodipodi:docname="New document 1">
+   sodipodi:docname="human.svg">
   <defs
      id="defs4" />
   <sodipodi:namedview
@@ -26,14 +26,14 @@
      inkscape:pageshadow="2"
      inkscape:zoom="0.58"
      inkscape:cx="127.21964"
-     inkscape:cy="589.36714"
+     inkscape:cy="-221.07545"
      inkscape:document-units="px"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="human"
      showgrid="false"
      inkscape:window-width="1236"
      inkscape:window-height="791"
-     inkscape:window-x="96"
-     inkscape:window-y="96"
+     inkscape:window-x="98"
+     inkscape:window-y="46"
      inkscape:window-maximized="0" />
   <metadata
      id="metadata7">
@@ -50,10 +50,11 @@
   <g
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
-     id="human">
+     id="human"
+     transform="translate(0,-912.36215)">
     <g
        id="g3768"
-       transform="translate(-70.689655,-406.89655)">
+       transform="translate(-70.689655,506.89656)">
       <path
          sodipodi:open="true"
          sodipodi:end="6.2744762"

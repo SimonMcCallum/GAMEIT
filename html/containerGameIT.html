@@ -3,21 +3,15 @@
 <ul>
 <li><a href="#tabs-1">Population</a></li>
 <li><a href="#tabs-2">CVD</a></li>
-<li><a href="#tabs-3">Art.Fib</a></li>
+<li><a href="#tabs-3">A.Fib</a></li>
 <li><a href="#tabs-4">Throm</a></li>
 </ul>
 <div class="decisions">
 <div id="tabs-1">
-    <p>The diagram below shows the current poplation. If you are happy with all the decisions then you can move to the next year with the button below</p>
+    <p>The diagram below shows the current population. If you are happy with all the decisions then you can move to the next year with the button below</p>
   </div>
   <div id="tabs-2">
-    <p>What recommendations will you make for CVD</p>
-  </div>
-  <div id="tabs-3">
-    <p>What recommendations will you make for Arterial Fibrosis</p>
-  </div>
-  <div id="tabs-4">
-    <p>What recommendations will you make for Thrombosis</p>
+    <p>What recommendations will you make for people with coronary disease.  The population below is the group with coronary disease.</p>
     <table><tr><td>Population</td><td id="Population"></td></tr>
 	<tr><td>Intervention</td><td id="Intervention"></td></tr>
 	<tr><td>Recommendations</td></tr>
@@ -26,6 +20,57 @@
 		<a class="selectitem" class="str1" href="#">Weak</a>
 		<a class="selectitem" class="str2" href="#">Strong</a></td><td id="rec"></div></td></tr>
 	</table>
+  </div>
+  <div id="tabs-3">
+    <p>What recommendations will you make for Atrial fibrillation</p>
+     <table><tr><td>Population</td><td id="Population"></td></tr>
+	<tr><td>Intervention</td><td id="Intervention"></td></tr>
+	<tr><td>Recommendations</td></tr>
+	<tr><td><div class="strength">
+      		<a class="selectitem" class="str0" href="#">None</a>
+		<a class="selectitem" class="str1" href="#">Weak</a>
+		<a class="selectitem" class="str2" href="#">Strong</a></td>
+		<td id="rec"></div></td></tr>
+	</table>
+ </div>
+  <div id="tabs-4">
+    <p>What recommendations will you make for Thrombosis</p>
+    <table><tr><td>Population</td><td id="Population">Acute Venous Thrombosis</td></tr>
+	<tr><td>Intervention</td><td id="Intervention">Parenteral anticoagulation</td></tr>
+	<tr><td>Recommendation</td></tr>
+	<tr><td class = "strengthSelect" ><div class="strength">
+      	<select class="form-control" id="41">
+    <option value="0">None</option>
+    <option class="str1" value="1">Weak</option>
+    <option class="str2" value="2">Strong</option>
+</select></td>
+		<td id="rec41">  initial treatment with Parenteral anticoagulation for at least 5 days and until the INR is &gt; 2.0 for at least 24 hours.</div></td></tr>
+	</table>
+<div class="btn-group" data-toggle="buttons-checkbox">
+    <a class="btn collapse-data-btn" data-toggle="collapse"  href="#MoreInfo41">More Info</a>
+    <a class="btn collapse-data-btn" data-toggle="collapse"  href="#Outcome41">Outcomes</a>
+</div>
+<div id="MoreInfo41" class="collapse"><h3>Benefits and harms</h3>
+<p>
+Three randomized studies have shown that this is as effective and safe to delay initiation of warfarin. 
+Early initiation of warfarin will shorten parenteral treatment, which could reduce the incidence of heparin-induced thrombocytopenia (HIT). 
+Per 1000 Patients: Initial parenteral therapy will reduce the number Reoccurence without an increasing the occurance of major bleeding. 
+
+<h3>Quality of evidence</h3>
+In 2 of 3 studies, patients and physicians not blinded to which treatment they received. No studies have data on incidence of HIT. 
+<br/>
+Moderate for initial parenteral treatment. There is only data from a randomized trial (120 patients). The quality of this study is considered moderate due to imprecise estimates. The study was stopped early because of significantly fewer residivtromboser with parenteral treatment, which meant few events (low number residivtromboser and few cases of major bleeding or death). 
+
+<h3>Preference and values</h3> 
+We assume that almost all patients will want initial parenteral treatment because fewer residivtromboser no increased risk of major bleeding, although it will be somewhat greater discomfort for the patient (daily injections). However, practical considerations taken into account by early initiation of warfarin, for example. INR should be measured day 3 and 5 after startup, so that these days should preferably fall on weekdays with open outpatient clinic / medical office. 
+
+<h3>Resources and Other Considerations</h3> 
+Treatment are most places refunded after reimbursement scheme (ICD I26, I80, I82). </p>
+        </div>
+<div id="Outcome41" class="collapse"><h3>Outcomes</h3>
+<p>
+Outcomes</p>
+        </div>
     
 
 
@@ -33,11 +78,33 @@
 <div id="questions"> </div>
 </div>
 </div>
-		<h2> Year <span id="yearNumber">2000</span></h2>
-		<div class="svg"></div>
+		<input id="yearReset" type="button" value="Start Over" onclick="window.location.reload()" />&nbsp;&nbsp; <span class="large">Year <span id="yearNumber">2000</span>&nbsp;&nbsp;</span><input id="yearStep" type="button" value="Next Year" onclick="endTurn()" />&nbsp;&nbsp;&nbsp;&nbsp;<input id="Retest" type="button" value="Retest" onclick="updateTreatment()" />
+		<table >
+		<tr>
+		<td rowspan = 2><div class="svg"></div></td>
+		<td valign = "top"><div class="svggraph"></div></td></tr>
+		<tr><td>
+		<span class="legend">
+		Mortality = <span id="mortRate">20</span>%
+        <br/>
+        Recurrence = <span id="recurRate">15</span>%
+        <br/>
+        Quality of life = <span id="morbRate">10</span>%
+        <br/>
+        <img src="images/humandkgrey.svg" width="15" id="iconliving"> = <span id="personSize">8000</span>
+        <br/>
+        <img src="images/humandkgrey.svg" width="15" id="icontreated"> have been treated
+        <br/>
+        <img src="images/humanltgrey.svg" width="15" id="iconuntreated"> did not receive treatment
+        <br/>
+        <img src="images/human1.svg" width="15" id="icondead"> died 
+        <br/>
+        <img src="images/humangreen.svg" width="15" id="iconsaved"> would have died without treatment 
+        <br/>
+        </span>
+        </td></tr>
 		
-		<input id="yearStep" type="button" value="End Turn" onclick="endTurn()" />
-		<br />
+		</table>
 		<!-- 2000<input id="year" type="range" steps="1" value="0" min="0" max="10" name="year" class="slider" /> 2010
 		<span id="yearSliderValLabel"> Year Range: <span id="yearSliderVal">0</span></span> -->
 

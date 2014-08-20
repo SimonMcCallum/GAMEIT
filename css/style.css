@@ -9,7 +9,15 @@ body
 	background: #efefef;
 
 }
-	
+
+.untreated
+    {
+        fill:#BBB;
+    }
+.treated
+    {
+        fill:#888;
+    }	
 .living
 	{
 		fill:#999999;
@@ -27,6 +35,12 @@ body
 		fill:#DDD;
 		stroke:#BBB;
 	}
+.legend
+{
+	font-size:120%;
+}
+	
+	
 .container
 {
 	
@@ -50,6 +64,63 @@ body
 	float:left;
 	width: 800px;
 	height: 800px;
+}
+
+.str2
+{
+	background: #73ab79;
+}
+.str1
+{
+    background: #e0c045;
+}
+
+h3 {
+	font-size:120%;
+}
+
+.large{
+	font-size:200%;
+}
+
+.info{
+	color:#444;
+	font-size:80%;
+}
+
+#graphpathMort{ 
+    stroke: red; stroke-width: 2; fill: none; 
+    } 
+#mortRate{
+	color:red;
+}
+#graphpathMorb{ 
+    stroke: steelblue; stroke-width: 2; fill: none; 
+    } 
+#morbRate{
+	color:steelblue;
+}
+#graphpathRecur{ 
+    stroke: brown; stroke-width: 2; fill: none; 
+    } 
+#recurRate{
+	color: brown;
+}
+
+.graphline{ 
+    stroke: black; 
+    }
+    
+.xTicks{ 
+    stroke: black; 
+    }
+
+.yTicks{ 
+    stroke: black; 
+    }
+
+#graph{
+	vertical-align: top;
 }
 
 nav.tabs

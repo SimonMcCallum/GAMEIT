@@ -7,7 +7,7 @@
 	echo file_get_contents('html/headerGameIT.html');	
 	echo '<body>';
 	
-	echo file_get_contents('html/containerGameIT.html');
+	include('html/containerGameIT.html');
 	echo file_get_contents('html/scriptsGameIT.html');
 	
 	
