@@ -4,11 +4,13 @@ var width = 600;
 		
 		var grid_rows = 14;
 		var grid_cols = 80;
-		var humanRatio = (grid_rows*grid_cols)/1000;
+		var totalIcons = (grid_rows*grid_cols);
 		
 		var totalDead = 0;
 		var currentDead = 0;
-		var potentiallyDead = 20;
+		var potentiallyDead = .03;
+		var currentRecur = 0;
+		var potentiallyRecur = .19;
 		
 		var total_saved = 0;
 
@@ -157,11 +159,11 @@ var width = 600;
     			stepYear();	
     			if (currentYear > 2012) $("#yearStep").attr("disabled", true); //.attr("disabled", false);
     			dataMort.push(currentDead);
-    			$("#mortRate").text(currentDead);
+    			$("#mortRate").text(currentDead.toFixed(1));
     			dataMorb.push(potentiallyDead);
-    			$("#morbRate").text(potentiallyDead);
-    			dataRecur.push(totalDead);
-    			$("#recurRate").text(totalDead);
+    			$("#morbRate").text(potentiallyDead.toFixed(1));
+    			dataRecur.push(currentRecur);
+    			$("#recurRate").text(currentRecur.toFixed(1));
     			updateGraph();
     			updateTreatment();
 		}
@@ -236,6 +238,7 @@ var width = 600;
 			                .attr("transform", "translate(" + [x_offset + (x_step * i), y_offset] + ")" + "scale("+ scale +")")
 			                .attr("opacity",1)
 			                .duration(duration);
+			        	totalIcons++;
 		                }
 		                else
 		                {
@@ -254,6 +257,8 @@ var width = 600;
 			var year_offset = 2000;
 			var max_population = 20000;
 			var number = rows * cols;
+
+			totalIcons=0;
 			for (var i=0;i<rows;i++)
 			{
 				pop_row_size[i] = (population[year-year_offset][(i*(ageStep*2))+gender+1]/max_population)*maxCols;
@@ -305,11 +310,13 @@ var width = 600;
 		function randomKill(dead,dead_var,save,save_var_neg,save_var_pos,treatment){
 			//reset("dead");
 			//reset("saved");
-	        potentiallyDead = Math.floor((dead)*humanRatio)+(Math.floor((Math.random()*dead_var)-(dead_var/2)));
+			percentEffected = (dead+(Math.random()*dead_var)-(dead_var/2));
+	        potentiallyDead = Math.floor(percentEffected*totalIcons);
 	       
 	        d3.select("killtext").text(potentiallyDead+" died");
-			var intervention_worked = (randomStream.normal((dead-save),(save_var_pos-save_var_neg)/4));
-			console.log(intervention_worked);
+			var interventionSuccess = (randomStream.normal(save,(save_var_pos-save_var_neg)/4));//4 std range
+			var interventionFail = interventionSuccess*dead;
+			console.log("intervention ",interventionFail, "    ",interventionSuccess);
 			currentDead=0;
 	        for (var i=0; i<potentiallyDead; i++)
 	        {
@@ -318,7 +325,7 @@ var width = 600;
 				var kill_object = $("#icon"+rowHit+"_"+colHit);
 	        	if (colHit<pop_row_size[rowHit]*treatment)
         		{
-	        		if(i<intervention_worked*humanRatio){
+	        		if(i<interventionFail*totalIcons){
 	        			kill_object.attr("class","saved");
 	        			continue;
 	        		}
@@ -326,11 +333,47 @@ var width = 600;
 	        	currentDead++;
 				kill_object.attr("class","dead");
 				//kill_object.setAttribute("transform","translate(" + [400+(dead *12),300] + ")" + "scale("+ 0.3 +")")
-				console.log(kill_object,"   ",i);
+//				console.log(kill_object,"   ",i);
 			}
 	        
+	        currentDead = (currentDead/totalIcons)*100;
+		}
+	
+		
+		function randomRecur(dead,dead_var,save,save_var_neg,save_var_pos,treatment){
+			//reset("dead");
+			//reset("saved");
+			percentEffected = (dead+(Math.random()*dead_var)-(dead_var/2));
+	        potentiallyRecur = Math.floor(percentEffected*totalIcons);
+	       
+	        d3.select("killtext").text(potentiallyRecur+" died");
+			var interventionSuccess = (randomStream.normal(save,(save_var_pos-save_var_neg)/4));//4 std range
+			var interventionFail = interventionSuccess*dead;
+			console.log("intervention ",interventionFail, "    ",interventionSuccess);
+			currentRecur=0;
+	        for (var i=0; i<potentiallyRecur; i++)
+	        {
+	        	var rowHit = Math.floor(Math.random()*grid_rows);
+	        	var colHit = Math.floor(Math.random()*pop_row_size[rowHit]);
+				var kill_object = $("#icon"+rowHit+"_"+colHit);
+	        	if (colHit<pop_row_size[rowHit]*treatment)
+        		{
+	        		if(i<interventionFail*totalIcons){
+//	        			kill_object.attr("class","saved");
+	        			continue;
+	        		}
+        		}
+	        	currentRecur++;
+				//kill_object.attr("class","dead");
+				//kill_object.setAttribute("transform","translate(" + [400+(dead *12),300] + ")" + "scale("+ 0.3 +")")
+//				console.log(kill_object,"   ",i);
+			}
+	        currentRecur = (currentRecur/totalIcons)*100;
 			
 		}
+
+		
+		
 		
 		
 		
@@ -361,6 +404,10 @@ var width = 600;
 	    case "Throm":
 	    	treatment = treatmentMapping[$("#41").val()];
 	    	treatmentFn = runThrom;
+	    	$("#personSize").text(160); 
+	    	break;
+	    case "Population":
+	    	$("#personSize").text(8000); 
 	    	break;
 	    }
 	    
@@ -369,21 +416,30 @@ var width = 600;
 			update_rowTreatment(pop_row_size[i],i,treatment);
 		};
 		treatmentFn();
-	    $("#mortRate").text(currentDead);
-		$("#morbRate").text(potentiallyDead);
-		$("#recurRate").text(totalDead);
+	    $("#mortRate").text(currentDead.toFixed(1));
+		$("#morbRate").text(potentiallyDead.toFixed(1));
+		$("#recurRate").text(currentRecur.toFixed(1));
 	}	
 		
 		function runThrom()
 		{
-		 var rate = 20;
-		 var stddev_rate = 2;
-		 var intervention = 5;
+		 var rate = 0.03;
+		 var stddev_rate = .01;
+		 var intervention = 0.55;
 		 var stddev_intervention_neg = 0.2;	 
-		 var stddev_intervention_pos = 5.1;
+		 var stddev_intervention_pos = 0.7;
 		 var treatment = treatmentMapping[$("#41").val()];
 		 
 		 randomKill(rate,stddev_rate,intervention,stddev_intervention_neg,stddev_intervention_pos,treatment);
+		 
+		 
+		 var rate = 0.19;
+		 var stddev_rate = .05;
+		 var intervention = 0.34;
+		 var stddev_intervention_neg = 0.1;	 
+		 var stddev_intervention_pos = 0.9;
+		 
+		 randomRecur(rate,stddev_rate,intervention,stddev_intervention_neg,stddev_intervention_pos,treatment);
 		}
 		
 		
